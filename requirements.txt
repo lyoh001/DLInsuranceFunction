@@ -1,6 +1,5 @@
 azure-functions
 black
-numpy
 pandas
 sklearn
 tensorflow
