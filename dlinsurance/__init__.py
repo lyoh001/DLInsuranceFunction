@@ -3,6 +3,7 @@ import warnings
 from pickle import load
 
 import azure.functions as func
+import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
@@ -17,7 +18,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     preprocessor = load(open("dl_preprocessor/dl_preprocessor.pkl", "rb"))
     model = keras.models.load_model("dl_model")
     payload = pd.DataFrame(
-        {k: [None] if next(iter(v)) == "" else v for k, v in req.get_json().items()}
+        {k: [np.nan] if next(iter(v)) == "" else v for k, v in req.get_json().items()},
+        dtype="object",
     )
     return func.HttpResponse(
         status_code=200,
