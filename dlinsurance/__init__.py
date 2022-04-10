@@ -22,5 +22,5 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     return func.HttpResponse(
         status_code=200,
-        body=f"{model.predict(preprocessor.transform(pd.DataFrame(req.get_json())))}",
+        body=f"{model.predict(preprocessor.transform(pd.DataFrame(req.get_json())))[0][0]:.2f}",
     )
